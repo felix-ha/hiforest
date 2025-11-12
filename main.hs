@@ -1,12 +1,33 @@
+import System.Random
 import Test.HUnit
 
-data ITree = ExNode Integer | InNode ITree ITree Integer Double
+data ITree = ExNode Int | InNode ITree ITree Int Double
   deriving (Show)
 
 type Dataset = [[Double]]
+type Column = [Double]
 
 x :: Dataset
 x = [[1.2, 1.1], [1.9, 0.2], [2.2, 0.1], [1.9, 0.2]]
+
+getColumn :: Dataset -> Int -> Column
+getColumn x i = map (\l -> l !! i) x
+
+initialGenerator :: StdGen
+initialGenerator = mkStdGen 44
+
+train :: StdGen -> Dataset -> Int -> Int -> ITree
+train gen x e l | e >= l || length x <= 1  = ExNode (length x)
+                | otherwise = ExNode q
+    where (q, gen_new) = randomR (0 :: Int, (numberOfFeatures x) - 1:: Int) gen
+          column = getColumn x q
+-- TODO: determine all possible split points here
+-- splitPoints :: [Double]
+-- (p, gen_return) = randomR (minimum splitPoints :: Double, maximum splitPoints :: Double) gen_new
+
+main = print $
+     train initialGenerator x 0 10
+
 
 numberOfFeatures :: Dataset -> Int
 numberOfFeatures x | length distinct_values == 1 = distinct_values !! 0
@@ -32,7 +53,7 @@ tests :: Test
 tests = TestList [TestLabel "testFeatures" testFeatures, 
                   TestLabel "testIsValid" testisValidDataset]
 
-main :: IO ()
-main = do
-  counts <- runTestTT tests
-  print counts    
+-- main :: IO ()
+-- main = do
+--   counts <- runTestTT tests
+--   print counts    

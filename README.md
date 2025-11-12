@@ -7,4 +7,5 @@ Install HUnit
 
 ```bash
 cabal install --lib HUnit
+cabal install --lib random
 ```
