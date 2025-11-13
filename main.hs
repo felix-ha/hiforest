@@ -1,3 +1,4 @@
+import Data.List
 import System.Random
 import Test.HUnit
 
@@ -16,13 +17,17 @@ getColumn x i = map (\l -> l !! i) x
 initialGenerator :: StdGen
 initialGenerator = mkStdGen 44
 
+-- TODO: Test this function
+splits :: Column -> [Double]
+splits xs = map (\t -> (fst t + snd t) / 2) (zip ys (tail ys))
+   where ys = sort xs
+
 train :: StdGen -> Dataset -> Int -> Int -> ITree
 train gen x e l | e >= l || length x <= 1  = ExNode (length x)
                 | otherwise = ExNode q
     where (q, gen_new) = randomR (0 :: Int, (numberOfFeatures x) - 1:: Int) gen
           column = getColumn x q
--- TODO: determine all possible split points here
--- splitPoints :: [Double]
+          splitPoints = splits column
 -- (p, gen_return) = randomR (minimum splitPoints :: Double, maximum splitPoints :: Double) gen_new
 
 main = print $
