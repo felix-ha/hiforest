@@ -47,6 +47,16 @@ fitITree gen x e l | e >= l || length x <= 1  = ExNode (length x)
           x_left = filter (\r -> (r !! q) < p) x
           x_right = filter (\r -> (r !! q) >= p) x
 
+h :: Double -> Double
+h n = log n + 0.5772156649
+
+c :: Double -> Double
+c n = 2 * h (n-1) - (2 * (n-1) / n)
+
+pathLength :: Column -> ITree -> Double -> Double
+pathLength _ (ExNode n) e = e + c (fromIntegral n)
+pathLength x (InNode iTreeLeft iTreeRight q p) e | (x !! q) < p = pathLength x iTreeLeft (e+1)
+                                                 | otherwise = pathLength x iTreeRight (e+1)
 
 initialGenerator :: StdGen
 initialGenerator = mkStdGen 44
@@ -54,10 +64,15 @@ initialGenerator = mkStdGen 44
 x :: Dataset
 x = [[1.2, 1.1], [1.9, 0.2], [2.2, 0.1], [1.9, 0.2]]
 
-iTree = fitITree initialGenerator x 0 10
+y :: Column
+y = [0.01, 9.2]
 
+iTree = fitITree initialGenerator x 0 1
+l = pathLength y iTree 0
+
+-- TODO iTree looks good, pathLength is -Infinty
 main = print $
-     iTree
+     l
 
 
 testFeatures :: Test
