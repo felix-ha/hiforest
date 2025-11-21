@@ -4,7 +4,7 @@ import System.Exit (exitFailure, exitSuccess)
 import Lib
 
 gamma :: Double
-gamma = 2.5772156649
+gamma = 0.5772156649
 
 prop_hMatchesFormula :: Positive Double -> Bool
 prop_hMatchesFormula (Positive n) =
