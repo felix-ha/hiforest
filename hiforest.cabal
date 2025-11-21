@@ -18,7 +18,7 @@ library
     exposed-modules:  Lib
     build-depends:
         base ^>=4.18.3.0,
-        random ^>=1.3.0,
+        random ^>=1.3.0
     default-language: Haskell2010
 
 executable hiforest
@@ -28,17 +28,32 @@ executable hiforest
     build-depends:
         base ^>=4.18.3.0,
         random ^>=1.3.0,
-        hiforest      
+        hiforest
     default-language: Haskell2010
 
-test-suite hiforest-tests
+test-suite hiforest-quickcheck
     import:           warnings
     type:             exitcode-stdio-1.0
-    hs-source-dirs:   test
-    main-is:          Spec.hs
+    hs-source-dirs:   src test
+    main-is:          QuickCheckSpec.hs
+    other-modules:
+        Lib
     build-depends:
-        base,
+        base ^>=4.18.3.0,
         QuickCheck,
-        hiforest
+        random ^>=1.3.0
+    default-language: Haskell2010
+
+test-suite hiforest-hunit
+    import:           warnings
+    type:             exitcode-stdio-1.0
+    hs-source-dirs:   src test
+    main-is:          HUnitSpec.hs
+    other-modules:
+        Lib
+    build-depends:
+        base ^>=4.18.3.0,
+        HUnit,
+        random ^>=1.3.0
     default-language: Haskell2010
 

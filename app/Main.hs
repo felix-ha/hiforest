@@ -24,17 +24,3 @@ main = print $
      l
 
 
--- testFeatures :: Test
--- testFeatures = TestCase (assertEqual "Test numberOfFeatures for x" 2 (numberOfFeatures x))
---
--- testisValidDataset:: Test
--- testisValidDataset = TestCase (assertEqual "Test isValidDataset for x" True (isValidDataset x))
---
--- tests :: Test
--- tests = TestList [TestLabel "testFeatures" testFeatures, 
---                   TestLabel "testIsValid" testisValidDataset]
-
--- main :: IO ()
--- main = do
---   counts <- runTestTT tests
---   print counts    
