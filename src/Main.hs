@@ -1,3 +1,5 @@
+module Main where
+
 import Data.List
 import System.Random
 import Test.HUnit
@@ -71,6 +73,7 @@ iTree = fitITree initialGenerator x 0 1
 l = pathLength y iTree 0
 
 -- TODO iTree looks good, pathLength is -Infinty
+main :: IO ()
 main = print $
      l
 
