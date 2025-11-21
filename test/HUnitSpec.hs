@@ -1,5 +1,8 @@
 import Test.HUnit
+import System.Exit (exitFailure, exitSuccess)
+
 import Lib
+
 
 x :: Dataset
 x = [[1.2, 1.1], [1.9, 0.2], [2.2, 0.1], [1.9, 0.2]]

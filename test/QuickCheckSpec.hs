@@ -1,4 +1,6 @@
 import Test.QuickCheck
+import System.Exit (exitFailure, exitSuccess)
+
 import Lib
 
 gamma :: Double
