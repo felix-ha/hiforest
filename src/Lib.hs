@@ -1,8 +1,7 @@
-module Main where
+module Lib where
 
 import Data.List
 import System.Random
-import Test.HUnit
 
 data ITree = ExNode Int | InNode ITree ITree Int Double
   deriving (Show)
@@ -23,7 +22,7 @@ distinctValues (x:xs) ds | x `elem` ds = distinctValues xs ds
 
 isValidDataset :: Dataset -> Bool
 isValidDataset ds = length distinct_values == 1
-   where distinct_values = distinctValues (map length x) []
+   where distinct_values = distinctValues (map length ds) []
 
 getColumn :: Dataset -> Int -> Column
 getColumn x i = map (\l -> l !! i) x
@@ -60,35 +59,3 @@ pathLength _ (ExNode n) e = e + c (fromIntegral n)
 pathLength x (InNode iTreeLeft iTreeRight q p) e | (x !! q) < p = pathLength x iTreeLeft (e+1)
                                                  | otherwise = pathLength x iTreeRight (e+1)
 
-initialGenerator :: StdGen
-initialGenerator = mkStdGen 44
-
-x :: Dataset
-x = [[1.2, 1.1], [1.9, 0.2], [2.2, 0.1], [1.9, 0.2]]
-
-y :: Column
-y = [0.01, 9.2]
-
-iTree = fitITree initialGenerator x 0 1
-l = pathLength y iTree 0
-
--- TODO iTree looks good, pathLength is -Infinty
-main :: IO ()
-main = print $
-     l
-
-
-testFeatures :: Test
-testFeatures = TestCase (assertEqual "Test numberOfFeatures for x" 2 (numberOfFeatures x))
-
-testisValidDataset:: Test
-testisValidDataset = TestCase (assertEqual "Test isValidDataset for x" True (isValidDataset x))
-
-tests :: Test
-tests = TestList [TestLabel "testFeatures" testFeatures, 
-                  TestLabel "testIsValid" testisValidDataset]
-
--- main :: IO ()
--- main = do
---   counts <- runTestTT tests
---   print counts    
