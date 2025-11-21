@@ -9,5 +9,9 @@ prop_hMatchesFormula (Positive n) =
   abs (h n - (log n + gamma)) < 1e-12
 
 main :: IO ()
-main = quickCheck prop_hMatchesFormula
+main = do
+  result <- quickCheckResult prop_hMatchesFormula
+  case result of
+    Success {} -> exitSuccess
+    _          -> exitFailure
 

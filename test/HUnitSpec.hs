@@ -20,4 +20,7 @@ main :: IO ()
 main = do
     counts <- runTestTT tests
     print counts
+    if errors counts == 0 && failures counts == 0
+      then exitSuccess
+      else exitFailure
 
