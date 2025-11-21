@@ -5,7 +5,7 @@ x :: Dataset
 x = [[1.2, 1.1], [1.9, 0.2], [2.2, 0.1], [1.9, 0.2]]
 
 testFeatures :: Test
-testFeatures = TestCase (assertEqual "numberOfFeatures x" 2 (numberOfFeatures x))
+testFeatures = TestCase (assertEqual "numberOfFeatures x" 3 (numberOfFeatures x))
 
 testIsValid :: Test
 testIsValid = TestCase (assertEqual "isValidDataset x" True (isValidDataset x))
